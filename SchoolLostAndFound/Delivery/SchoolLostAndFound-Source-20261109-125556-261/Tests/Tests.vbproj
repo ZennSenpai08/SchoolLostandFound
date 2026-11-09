@@ -1,0 +1,9 @@
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+<PropertyGroup><OutputType>Exe</OutputType><RootNamespace>Verification</RootNamespace><StartupObject>Verification.Suite</StartupObject><TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion><PlatformTarget>x86</PlatformTarget><OutputPath>bin\</OutputPath><OptionStrict>On</OptionStrict><OptionInfer>On</OptionInfer></PropertyGroup>
+<ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Data"/><Reference Include="System.Drawing"/><Reference Include="System.Windows.Forms"/><Reference Include="Microsoft.VisualBasic"/></ItemGroup>
+<ItemGroup><Import Include="System"/><Import Include="System.Collections.Generic"/><Import Include="System.Data"/><Import Include="System.Linq"/><Import Include="System.IO"/><Import Include="System.Windows.Forms"/><Import Include="SchoolLostAndFound"/></ItemGroup>
+<ItemGroup><ProjectReference Include="..\SchoolLostAndFound\SchoolLostAndFound.vbproj"><Project>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</Project><Name>SchoolLostAndFound</Name></ProjectReference><Compile Include="Suite.vb"/></ItemGroup>
+<ItemGroup><Compile Include="ExtendedSuite.vb"/></ItemGroup>
+<Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets"/>
+</Project>

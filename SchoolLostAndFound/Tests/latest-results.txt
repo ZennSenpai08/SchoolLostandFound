@@ -1,0 +1,133 @@
+PASS: Parameterized login rejects injection
+PASS: Wrong password denied
+PASS: Migrated admin login
+PASS: Salted password migration is repeatable
+PASS: Passwords are case sensitive
+PASS: Create lost/found items
+PASS: Search apostrophe safely
+PASS: Update lost item
+PASS: Future date rejected
+PASS: Invalid category rejected
+PASS: Delete unreferenced item
+PASS: Staff login
+PASS: Staff cannot view users
+PASS: Administrator restored
+PASS: Create user
+PASS: Deactivated user denied
+PASS: Admin remains active
+PASS: Current administrator cannot be disabled
+PASS: Exact weighted match scores 100
+PASS: Duplicate active claim rejected
+PASS: Cannot release pending claim
+PASS: Active claim protects item edits
+PASS: Approval requires evidence
+PASS: Approval reserves found item
+PASS: Reserved item excluded from matching
+PASS: Cancellation frees lost report
+PASS: Cancellation frees found item
+PASS: Release marks lost report claimed
+PASS: Release updates found item
+PASS: Release timestamp saved
+PASS: Double release rejected
+PASS: Claim report joins actual students/items
+PASS: Uncommitted data and audit both roll back
+PASS: Student create/search preserves apostrophes
+PASS: Duplicate student number rejected
+PASS: Invalid email rejected
+PASS: Student full name required
+PASS: Student field lengths enforced by service
+PASS: Student edit and optional blank email
+PASS: Duplicate category rejected
+PASS: Category create/edit/search
+PASS: Referenced student cannot be deleted
+PASS: Referenced category cannot be deleted
+PASS: Missing item fields rejected
+PASS: Invalid student foreign key rejected
+PASS: Manual release status rejected
+PASS: Found item edit persists
+PASS: Unreferenced students and categories deleted
+PASS: Stale edit rejected
+PASS: Dynamic entity allowlist enforced
+PASS: Found-before-lost excluded even at zero threshold
+PASS: Found-before-lost claim rejected
+PASS: Claim evidence required
+PASS: Invalid match threshold rejected
+PASS: Missing match fields earn zero points
+PASS: Name overlap uses weighted token intersection/union
+PASS: Reserved item unavailable in validation helper
+PASS: Competing approval rejected
+PASS: Failed approval preserves competitor status
+PASS: Stale lost reservation aborts release
+PASS: Failed release rolls back item, claim and audit
+PASS: Rejected claims cannot reopen
+PASS: Historical claims protect deletion
+PASS: Decision saves verifier identity
+PASS: Lost items report loads without password fields
+PASS: Found items report loads without password fields
+PASS: Claims report loads without password fields
+PASS: Students report loads without password fields
+PASS: Category totals report loads without password fields
+PASS: Activity logs report loads without password fields
+PASS: Report keyword and inclusive date filters
+PASS: Report excludes dates outside range
+PASS: Reversed report dates rejected
+PASS: Category report totals reconcile with inventory
+PASS: CSV UTF-8 BOM and Unicode preserved
+PASS: CSV formula payloads escaped
+PASS: CSV commas, quotes and embedded newlines preserved
+PASS: Long report fields paginate to completion
+PASS: Print preview can restart pagination
+PASS: Settings round-trip XML characters and threshold
+PASS: Invalid settings rejected
+PASS: Invalid settings preserve previous file
+PASS: Settings replacement preserves previous copy
+PASS: Staff signs in for authorization checks
+PASS: Staff activity log access denied
+PASS: Staff settings update denied
+PASS: Staff backup denied
+PASS: Staff restore denied
+PASS: Wrong current password rejected
+PASS: Own password change invalidates previous password
+PASS: Persisted deactivation invalidates existing session access
+PASS: Admin signs in for maintenance
+PASS: User grid excludes password hashes
+PASS: Duplicate username rejected
+PASS: Admin password reset changes credentials
+PASS: Unknown account role rejected
+PASS: Last/current administrator demotion rejected
+PASS: frmLogin constructs and renders
+PASS: frmDashboard constructs and renders
+PASS: frmStudents binds data
+PASS: frmStudents constructs and renders
+PASS: frmCategories binds data
+PASS: frmCategories constructs and renders
+PASS: frmMatching constructs and renders
+PASS: frmClaims binds data
+PASS: frmClaims constructs and renders
+PASS: frmReports binds data
+PASS: frmReports constructs and renders
+PASS: frmSettings constructs and renders
+PASS: frmRecordsLostItems binds data
+PASS: frmRecordsLostItems constructs and renders
+PASS: frmRecordsFoundItems binds data
+PASS: frmRecordsFoundItems constructs and renders
+PASS: frmRecordsUsers binds data
+PASS: frmRecordsUsers constructs and renders
+PASS: Backup created and schema validated
+PASS: Existing backup preserved
+PASS: Cannot back up onto active database
+PASS: Cannot restore database onto itself
+PASS: Invalid database restore rejected
+PASS: Rejected restore leaves active database unchanged
+PASS: Missing schema column rejected
+PASS: Incorrect schema field type rejected
+PASS: Restore refuses in-use database
+PASS: Failed restore cleans staging files
+PASS: Restore keeps exact pre-restore safety copy
+PASS: Restore forces fresh sign-in
+PASS: Restored database supports login
+PASS: Restore recovers backup data
+PASS: Logout clears session
+PASS: Logged-out access rejected
+ARTIFACTS: C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\Tests\bin\Runs\20261109-124900-016
+RESULT: 131 checks passed

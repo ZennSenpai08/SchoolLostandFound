@@ -1,0 +1,359 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+SchoolLostAndFound
+</name>
+</assembly>
+<members>
+<member name="T:SchoolLostAndFound.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:SchoolLostAndFound.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:SchoolLostAndFound.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:SchoolLostAndFound.DatabaseHelper">
+ <summary>
+ Centralized database helper for all OleDb operations against the SchoolLostAndFound.mdb database.
+ Every form and module in the application uses this class instead of creating its own connections.
+ 
+ IMPORTANT: This class uses Microsoft.Jet.OLEDB.4.0 for .mdb files.
+ The project must target x86 to use the 32-bit Jet provider.
+ 
+ Security.InitializeDatabase migrates legacy passwords to salted PBKDF2 hashes.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.GetConnectionString">
+ <summary>
+ Builds the OleDb connection string pointing to the .mdb file
+ located in the Database subfolder relative to the running executable.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.GetConnection">
+ <summary>
+ Creates and returns a new open OleDbConnection.
+ The caller is responsible for closing/disposing this connection.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.ExecuteQuery(System.String,System.Data.OleDb.OleDbParameter[])">
+ <summary>
+ Executes a SELECT query and returns the results as a DataTable.
+ Use this for populating DataGridViews, ComboBoxes, and reports.
+ </summary>
+ <param name="sql">The SQL SELECT statement. Use ? for parameters.</param>
+ <param name="parameters">Optional OleDbParameter array for parameterized queries.</param>
+ <returns>A DataTable containing the query results.</returns>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.ExecuteScalar(System.String,System.Data.OleDb.OleDbParameter[])">
+ <summary>
+ Executes a query that returns a single scalar value (e.g., COUNT, MAX, first column of first row).
+ Returns Nothing if no result is found.
+ </summary>
+ <param name="sql">The SQL statement.</param>
+ <param name="parameters">Optional OleDbParameter array.</param>
+ <returns>The scalar result as Object, or Nothing.</returns>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.ExecuteNonQuery(System.String,System.Data.OleDb.OleDbParameter[])">
+ <summary>
+ Executes a non-query SQL command (INSERT, UPDATE, DELETE).
+ Returns the number of rows affected.
+ </summary>
+ <param name="sql">The SQL statement. Use ? for parameters.</param>
+ <param name="parameters">Optional OleDbParameter array.</param>
+ <returns>Number of rows affected.</returns>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.ExecuteInsertAndGetId(System.String,System.Data.OleDb.OleDbParameter[])">
+ <summary>
+ Executes an INSERT statement and returns the AutoNumber ID of the newly created record.
+ This uses @@IDENTITY immediately after the INSERT, which is safe for Jet/Access.
+ </summary>
+ <param name="sql">The INSERT SQL statement. Use ? for parameters.</param>
+ <param name="parameters">Optional OleDbParameter array.</param>
+ <returns>The auto-generated ID of the inserted record.</returns>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.CreateParameter(System.String,System.Object)">
+ <summary>
+ Creates an OleDbParameter with proper null handling.
+ If the value is Nothing or an empty string, DBNull.Value is used.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.CreateIntParameter(System.String,System.Int32,System.Boolean)">
+ <summary>
+ Creates an OleDbParameter for integer values with null support.
+ Use this for nullable foreign keys (e.g., Claims.VerifiedBy).
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.CreateDateParameter(System.String,System.DateTime)">
+ <summary>
+ Creates an OleDbParameter for Date values with null support.
+ If the date equals Date.MinValue, DBNull.Value is stored.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.LogActivity(System.String,System.String)">
+ <summary>
+ Records an action in the ActivityLogs table.
+ Uses the currently logged-in user from SessionManager.
+ </summary>
+ <param name="action">Short action name (e.g., "Login", "Added lost item").</param>
+ <param name="description">Detailed description of what happened.</param>
+</member>
+<member name="M:SchoolLostAndFound.DatabaseHelper.RecordExists(System.String,System.Data.OleDb.OleDbParameter[])">
+ <summary>
+ Checks if a record exists in a table matching the given condition.
+ </summary>
+ <param name="sql">A SELECT COUNT(*) query.</param>
+ <param name="parameters">Parameters for the query.</param>
+ <returns>True if COUNT > 0.</returns>
+</member>
+<member name="T:SchoolLostAndFound.SessionManager">
+ <summary>
+ Stores information about the currently logged-in user for the duration of the application session.
+ This is a Shared (static) class — there is no need to create an instance.
+ 
+ After a successful login, the Login form sets these properties.
+ All other forms read them to determine the current user's identity and role.
+ On logout, call SessionManager.Clear() to reset all values.
+ </summary>
+</member>
+<member name="P:SchoolLostAndFound.SessionManager.CurrentUserID">
+ <summary>UserID (primary key) of the logged-in user.</summary>
+</member>
+<member name="P:SchoolLostAndFound.SessionManager.CurrentUsername">
+ <summary>Username of the logged-in user.</summary>
+</member>
+<member name="P:SchoolLostAndFound.SessionManager.CurrentFullName">
+ <summary>Full display name of the logged-in user.</summary>
+</member>
+<member name="P:SchoolLostAndFound.SessionManager.CurrentRole">
+ <summary>Role of the logged-in user ("Administrator" or "Staff").</summary>
+</member>
+<member name="M:SchoolLostAndFound.SessionManager.SetSession(System.Int32,System.String,System.String,System.String)">
+ <summary>
+ Sets all session properties after a successful login.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.SessionManager.Clear">
+ <summary>
+ Clears all session data. Call this on logout.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.SessionManager.IsAdministrator">
+ <summary>
+ Returns True if the current user has the Administrator role.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.SessionManager.IsStaff">
+ <summary>
+ Returns True if the current user has the Staff role.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.SessionManager.IsLoggedIn">
+ <summary>
+ Returns True if a user is currently logged in (UserID > 0).
+ </summary>
+</member>
+<member name="T:SchoolLostAndFound.ValidationHelper">
+ <summary>
+ Provides reusable input validation methods used across all forms.
+ Every method returns True if the input is valid, or False if invalid.
+ Methods that return False also set a ByRef errorMessage explaining the problem.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsRequired(System.String,System.String,System.String@)">
+ <summary>
+ Validates that a required text field is not empty or whitespace-only.
+ </summary>
+ <param name="value">The text to validate.</param>
+ <param name="fieldName">The human-readable name of the field (for the error message).</param>
+ <param name="errorMessage">Output: the error message if validation fails.</param>
+ <returns>True if the field has a value.</returns>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsComboBoxSelected(System.Windows.Forms.ComboBox,System.String,System.String@)">
+ <summary>
+ Validates that a ComboBox has a selected item (SelectedIndex >= 0).
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsDateNotFuture(System.DateTime,System.String,System.String@)">
+ <summary>
+ Validates that a date is not in the future.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsDateReasonable(System.DateTime,System.String,System.String@)">
+ <summary>
+ Validates that a date falls within a reasonable range (not before year 2000).
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsValidEmail(System.String,System.String@)">
+ <summary>
+ Validates a basic email format. This is a simple check, not RFC-compliant,
+ but sufficient for a school project.
+ Allows empty emails (email is optional for students).
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsStudentNumberUnique(System.String,System.Int32,System.String@)">
+ <summary>
+ Validates that a student number is not empty and is not already used by another student.
+ </summary>
+ <param name="studentNumber">The student number to validate.</param>
+ <param name="currentStudentId">The StudentID of the record being edited (0 if adding new).</param>
+ <param name="errorMessage">Output: the error message if validation fails.</param>
+ <returns>True if valid and unique.</returns>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsUsernameUnique(System.String,System.Int32,System.String@)">
+ <summary>
+ Validates that a username is not empty and is not already used by another user.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsCategoryNameUnique(System.String,System.Int32,System.String@)">
+ <summary>
+ Validates that a category name is unique.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsValidClaimTransition(System.String,System.String,System.String@)">
+ <summary>
+ Validates that a claim status transition is allowed.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsFoundItemAvailable(System.Int32,System.String@)">
+ <summary>
+ Validates that a found item is still available for claiming.
+ Checks the FoundItems.Status column.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.CanDeleteCategory(System.Int32,System.String@)">
+ <summary>
+ Checks whether a category is referenced by any LostItems or FoundItems.
+ Prevents unsafe deletion.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.CanDeleteStudent(System.Int32,System.String@)">
+ <summary>
+ Checks whether a student is referenced by any LostItems or Claims.
+ Prevents unsafe deletion.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.ValidationHelper.IsValidPassword(System.String,System.String@)">
+ <summary>
+ Validates password minimum length.
+ </summary>
+</member>
+<member name="T:SchoolLostAndFound.AppUtilities">
+ <summary>
+ Application-wide utility functions used across multiple forms and classes.
+ This is a VB.NET Module, meaning all members are Shared/static by default
+ and can be called without creating an instance.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateComboBox(System.Windows.Forms.ComboBox,System.String,System.String,System.String,System.Boolean)">
+ <summary>
+ Populates a ComboBox with items from a database query.
+ </summary>
+ <param name="combo">The ComboBox control to populate.</param>
+ <param name="sql">The SELECT query (must return at least the value and display columns).</param>
+ <param name="valueMember">The column name to use as the Value (typically the ID).</param>
+ <param name="displayMember">The column name to display in the ComboBox.</param>
+ <param name="addEmptyItem">If True, adds an empty "-- Select --" item at the top.</param>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateComboBoxWithList(System.Windows.Forms.ComboBox,System.String[],System.Boolean)">
+ <summary>
+ Populates a ComboBox with a fixed list of string values.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateLostItemStatuses(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox with Lost Item statuses.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateFoundItemStatuses(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox with Found Item statuses.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateClaimStatuses(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox with Claim statuses.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateRoles(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox with User roles.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateCategories(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox from the Categories table.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.PopulateStudents(System.Windows.Forms.ComboBox)">
+ <summary>
+ Populates a ComboBox from the Students table, displaying StudentNumber - FullName.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.FormatDataGridView(System.Windows.Forms.DataGridView)">
+ <summary>
+ Applies consistent formatting to a DataGridView control.
+ Call this once in the Form_Load event for every DataGridView.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.SafeString(System.Data.DataRow,System.String)">
+ <summary>
+ Safely reads a String value from a DataRow, returning "" if DBNull.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.SafeInt(System.Data.DataRow,System.String)">
+ <summary>
+ Safely reads an Integer value from a DataRow, returning 0 if DBNull.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.SafeDate(System.Data.DataRow,System.String)">
+ <summary>
+ Safely reads a Date value from a DataRow, returning Date.MinValue if DBNull.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.SafeBool(System.Data.DataRow,System.String)">
+ <summary>
+ Safely reads a Boolean value from a DataRow, returning False if DBNull.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.ConfirmAction(System.String,System.String)">
+ <summary>
+ Shows a confirmation dialog. Returns True if the user clicks Yes.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.ShowSuccess(System.String,System.String)">
+ <summary>
+ Shows a success message.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.ShowError(System.String,System.String)">
+ <summary>
+ Shows an error message. Use this instead of showing raw exception details to the user.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.ShowWarning(System.String,System.String)">
+ <summary>
+ Shows a warning message.
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.FormatDate(System.DateTime)">
+ <summary>
+ Formats a Date for display. Returns "" if the date is MinValue (null).
+ </summary>
+</member>
+<member name="M:SchoolLostAndFound.AppUtilities.FormatDateTime(System.DateTime)">
+ <summary>
+ Formats a DateTime for display including time. Returns "" if MinValue.
+ </summary>
+</member>
+</members>
+</doc>

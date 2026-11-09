@@ -1,0 +1,2 @@
+
+  SchoolLostAndFound -> C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\Delivery\PackageInspection-20261109-125556-261\SchoolLostAndFound-Source-20261109-125556-261\SchoolLostAndFound\bin\Release\SchoolLostAndFound.exe

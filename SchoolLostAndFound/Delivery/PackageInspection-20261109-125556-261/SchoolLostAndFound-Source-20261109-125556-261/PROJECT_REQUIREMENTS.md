@@ -1,0 +1,30 @@
+# School Lost & Found Management System
+
+Recovered specification, 2026-11-06. This document reconciles the existing project with the user's complete-system request. Existing working functions and data must be preserved.
+
+## Platform and architecture
+VB.NET Windows Forms, .NET Framework 4.7.2 (compatible with 4.8), Visual Studio solution, x86 Debug and Release. Use System.Data.OleDb and Microsoft.Jet.OLEDB.4.0 with the existing Access .mdb. No server or external NuGet dependencies. Forms must remain designer-compatible with parameterless constructors and InitializeComponent separated into designer partial classes. Database work belongs in services/helpers. One local application instance owns the database; network-shared concurrent deployments are outside this release's scope.
+
+## Modules and acceptance criteria
+1. Authentication: active Administrator/Staff accounts, parameterized username lookup, salted password hashes, legacy-password migration, logout, session checks, password change, no password data in grids/logs/exports.
+2. Dashboard: current database counts for students, categories, lost/found items and pending claims; usable navigation to every module; refresh on return.
+3. Students: create, edit, search, delete; required unique student number and full name, optional valid email and contact details; prevent deletion when referenced.
+4. Categories: create, edit, search, delete; required unique name; prevent deletion when referenced.
+5. Lost items: student/category selectors, name, description, color, brand, lost date/location, distinctive marks, status, report timestamp; searchable list; edit/delete with claim integrity protection.
+6. Found items: category, name, description, color, brand, found date/location/person, storage location, marks, status, recording timestamp; searchable CRUD; protect claimed/reserved/released records.
+7. Matching: rank available found items for a selected unresolved lost report. Explain a deterministic 0-100 score: category 25, name token overlap 25, color 15, brand 10, location token overlap 10, distinctive marks token overlap 10, date proximity 5. Missing values earn no score; incompatible dates excluded. Scores suggest review, never prove ownership or automatically release an item.
+8. Claims: create against a lost report and available found item; student must own that report; evidence required. Pending -> Under Verification -> Approved/Rejected, cancellation before release. Require verification notes and verifier identity for decisions. Prevent duplicate active claims for the same pair and conflicting approvals.
+9. Release: only Approved claims may release; require handover remarks; atomically set claim Released with release date, found item Released, lost item Claimed; audit the action. Cancellation of an approval frees its reservation. Terminal claims cannot be reopened. Invalid or stale changes roll back.
+10. Users: administrator-only create/update/deactivate and password reset; unique username; recognized roles; prevent disabling/demoting the last active administrator or disabling the current user. Preserve users referenced in audit/claim records. Staff can change their own password.
+11. Activity logs: append actor/action/description/time for successful changes; administrator-only searchable display. Critical business changes and their audit entries share a transaction.
+12. Reports: real database reports for lost/found inventory, claims, students, category totals, and administrator activity logs; keyword and date filters where applicable; CSV export with quoting, UTF-8 and formula protection; paginated print preview/printing including full field values.
+13. Settings: school name and default match threshold stored locally; administrator maintenance; verified database backup and restore, exclusive access, reject invalid schemas, preserve a pre-restore safety copy, force re-login after restoration.
+
+## Database
+Retain Users, Students, Categories, LostItems, FoundItems, Claims, ActivityLogs and their existing IDs/data. AutoNumber primary keys. Foreign keys: Students -> LostItems and Claims; Categories -> LostItems and FoundItems; LostItems/FoundItems -> Claims; Users -> Claims.VerifiedBy and ActivityLogs. No cascade deletes of historical claims/logs. Unique indexes on Username, StudentNumber, CategoryName. Widen Password to 255 for versioned salted hashes; migrations must be repeatable and preserve data. Settings may use a local XML file. Seed database is demonstration data; deployment must disclose demo credentials and require replacement before real use.
+
+## Validation and security
+Parameterize every value; dynamic identifiers only from fixed internal allowlists. Honor Access field lengths; validate mandatory fields, real foreign keys, no future event dates, no found-before-lost claims, and valid status transitions. Explicit OleDb Date parameters. Recheck persisted active role for sensitive actions. Transactions protect multi-record changes; error handling must leave the UI usable. Treat MDB/local files as trusted-machine data: Windows folder permissions and backups are required; application roles cannot protect against direct file access. Keep personal information out of routine error logs. Preserve baseline database and source snapshots during recovery.
+
+## Verification and delivery
+Build Debug/Release x86 with installed MSBuild. Tests must use isolated database copies, never modify the source/demo/runtime database. Cover authentication, CRUD, constraints, authorization, scoring, transitions, duplicate/conflicting claims, atomic release, rollback, CSV, settings, backup/restore validation, and form construction/data binding. Document actual test results and limits (especially interactive UI, printer and clean-machine installation checks); do not call untested behavior verified. Deliver source solution, MDB, Release package, installation guide, user manual, test report and final completion report. Update DEVELOPMENT_PROGRESS.md after every verified phase with files, builds, tests, issues and next work.

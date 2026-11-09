@@ -1,0 +1,14 @@
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.Resources.resources
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.vbproj.GenerateResource.cache
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\bin\Debug\Database\SchoolLostAndFound.mdb
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\bin\Debug\SchoolLostAndFound.exe
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\bin\Debug\SchoolLostAndFound.pdb
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\bin\Debug\SchoolLostAndFound.xml
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.exe
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.xml
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.pdb
+c:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.frmLogin.resources
+c:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.frmDashboard.resources
+c:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.frmStudents.resources
+c:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.frmCategories.resources
+C:\Users\Romcill\Desktop\ML Algo\SchoolLostAndFound\SchoolLostAndFound\obj\x86\Debug\SchoolLostAndFound.vbprojResolveAssemblyReference.cache
